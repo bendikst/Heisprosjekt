@@ -14,5 +14,5 @@ int qm_next_floor(void);
 int qm_next_direction(void);
 
 
-//noen testkommentarer for å se hva som skjer :)
+
 #endif /* Queue_Manager_test_h */
