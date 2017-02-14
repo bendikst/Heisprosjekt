@@ -5,8 +5,6 @@
 void ev_button_pressed(elev_button_type_t buttonType, int floor) {
 	qm_update_queue(buttonType, floor);
 	elev_set_button_lamp(buttonType, floor, 1);
-
-
 }
 
 void ev_timeout() {
@@ -34,7 +32,16 @@ void ev_stop_button_released() {
 	}
 	//opretter ny QM?
 }
-void sm_arrived_at_floor(floor) {
+void sm_arrived_at_target_floor(int floor) {
 	elev_set_motor_direction(0);
-	
+	elev_set_button_lamp(BUTTON_COMMAND, floor, 0);
+	if (sm_next_direction = 1) {    //slukker lys i knapper
+		elev_set_button_lamp(BUTTON_CALL_UP, floor, 0);
+	}else if (sm_next_direction = -1) {
+		elev_set_button_lamp(BUTTON_CALL_DOWN, floor, 0);
+	}
+	elev_set_door_open_lamp(1);
+	dt_start_timer();
+	qm_update_floor(floor);
 }
+
