@@ -10,8 +10,8 @@ static int qm_order_list[];
 //nå la alex inn en kommentar :PPPPPpppPPPppPPpPP
 void qm_update_floor(int floor);
 void qm_update_queue(int floor, button_type_t button);
-int qm_next_floor(void);
-int qm_next_direction(void);
+int qm_get_next_floor(void);
+int qm_get_next_direction(void);
 
 
 
