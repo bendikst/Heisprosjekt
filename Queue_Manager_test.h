@@ -9,7 +9,10 @@ static int qm_order_list[];
 
 
 void qm_update_floor(int floor);
+void qm_update_queue(int floor, button_type_t button);
+int qm_next_floor(void);
+int qm_next_direction(void);
 
 
-
+//noen testkommentarer for å se hva som skjer :)
 #endif /* Queue_Manager_test_h */
