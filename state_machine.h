@@ -10,4 +10,4 @@ void ev_timeout();
 void ev_floor_signal(int floor);
 void ev_stop_button_pressed();
 void ev_stop_button_released();
-void sm_arrived_at_target_floor(floor);
+void sm_arrived_at_target_floor(int floor);

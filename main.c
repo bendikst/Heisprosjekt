@@ -43,7 +43,7 @@ void elevator_init() {
 		printf("Unable to initialize elevator hardware!\n");
 		return 1;
 	}
-	while (elev_get_floor_sensor_signal == -1)
+	while (elev_get_floor_sensor_signal() == -1)
 	{
 		elev_set_motor_direction(1);
 	}

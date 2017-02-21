@@ -1,4 +1,5 @@
 #include "Door_Timer.h"
+#include <limits.h>
 
 
 void dt_start_timer(void){
@@ -6,7 +7,7 @@ void dt_start_timer(void){
 }
 
 bool dt_is_timeout(void){
-	if (dt_timeout = (time(NULL) - dt_timer) > 2) {//HOLDER DETTE?
+	if (dt_timeout == (time(NULL) - dt_timer) > 2) {//HOLDER DETTE?
 		dt_timer = _CRT_INT_MAX;
 		return true;
 	}
