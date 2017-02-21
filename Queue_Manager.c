@@ -9,22 +9,19 @@
 void qm_update_floor(int floor){
   qm_last_floor = floor;
   while (floor == qm_order_list[0].floor) {//bruker while fordi det hender samme etasjen er målet to ganger på rad
-	  //Remove first element
+	  // ----Remove first element----
   }
 }
 
 //Should update queue based on the current direction and orderlist
 void qm_update_queue(int floor, elev_button_type_t button){
-
 if (qm_order_list[0].next == NULL) { //dersom listen var tom legger vi det inn som første element
-	  //insert node
+	  // ----insert node-----
 	  return;
 }
-else if (qm_order_list[1].next == NULL) {
-	//insert node in correct place
-}
-  
-else {//dersom det er 2 eller flere ordre i køen kjører denne
+ 
+else {//dersom det er mer enn ett element i lista kjører denne
+
 int um_last_floor = qm_last_floor;
 elev_motor_direction_t um_next_direction;
 	for (int i = 0; i < /*size of list*/; i++) {//bestillingen legges sortert inn i lista
@@ -58,12 +55,14 @@ elev_motor_direction_t um_next_direction;
 		}
 		else if (button == BUTTON_CALL_UP) {
 			if (um_next_direction == DIRN_UP && qm_order_list[i].floor >= floor > um_last_floor) {
-				//insert node
+				// ----insert node----
+				return;
 			}
 		}
 		else if (button == BUTTON_CALL_DOWN) {
 			if (um_next_direction == DIRN_DOWN && qm_order_list[i].floor <= floor < um_last_floor) {
-				//insert node
+				//  ----insert node----
+				return;
 			}
 		}
 		else {
@@ -77,10 +76,16 @@ elev_motor_direction_t um_next_direction;
 
 
 int qm_get_next_floor(void){
-  return qm_order_list[0].floor;
+	if (qm_order_list[0].next == NULL) {
+		return qm_order_list[0].floor;
+	}
+	return 0;
 }
 
 
 int qm_get_next_direction(void){
-  return qm_order_list[0].button;
+	if (qm_order_list[0].next == NULL) {
+		return qm_order_list[0].button;
+	}
+	return 0;
 }
