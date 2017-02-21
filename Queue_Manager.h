@@ -4,10 +4,10 @@
 #define Queue_Manager_test_h
 
 static int qm_last_floor;
-static int qm_next_direction; //-1, 0 , 1
+static elev_motor_direction_t qm_next_direction;
 static int qm_order_list[]; //Her vil vi heller ha en lenket liste
+static elev_motor_direction_t qm_curr_direction;
 
-//nå la alex inn en kommentar :PPPPPpppPPPppPPpPP
 void qm_update_floor(int floor);
 void qm_update_queue(int floor, elev_button_type_t button);
 int qm_get_next_floor(void);

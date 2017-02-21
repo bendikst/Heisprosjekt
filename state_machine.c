@@ -3,7 +3,7 @@
 
 
 void ev_button_pressed(elev_button_type_t buttonType, int floor) {
-	qm_update_queue(buttonType, floor);
+	qm_update_queue(floor, buttonType);
 	elev_set_button_lamp(buttonType, floor, 1);
 }
 
