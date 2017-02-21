@@ -5,8 +5,7 @@
 
 static int qm_last_floor;
 static elev_motor_direction_t qm_next_direction;
-static int qm_order_list[]; //Her vil vi heller ha en lenket liste
-static elev_motor_direction_t qm_curr_direction;
+static linked_list* qm_order_list; 
 
 void qm_update_floor(int floor);
 void qm_update_queue(int floor, elev_button_type_t button);
