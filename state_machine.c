@@ -1,3 +1,4 @@
+
 #include"state_machine.h"
 
 
@@ -20,14 +21,14 @@ void ev_floor_signal(int floor) {
 void ev_stop_button_pressed() {
 	elev_set_motor_direction(0);
 	elev_set_stop_lamp(1);
-	if (elev_get_floor_sensor_signal() != -1) {//åpner døren hvis i etasje
+	if (elev_get_floor_sensor_signal() != -1) {//ï¿½pner dï¿½ren hvis i etasje
 		elev_set_door_open_lamp(1);
 	}
 	//slette queue
 }
 void ev_stop_button_released() {
 	elev_set_stop_lamp(1);
-	if (elev_get_floor_sensor_signal() != -1) {//åpner døren hvis i etasje
+	if (elev_get_floor_sensor_signal() != -1) {//ï¿½pner dï¿½ren hvis i etasje
 		dt_start_timer();
 	}
 	//opretter ny QM?
@@ -35,13 +36,12 @@ void ev_stop_button_released() {
 void sm_arrived_at_target_floor(int floor) {
 	elev_set_motor_direction(0);
 	elev_set_button_lamp(BUTTON_COMMAND, floor, 0);
-	if (sm_next_direction = 1) {    //slukker lys i knapper
+	if (sm_next_direction == 1) {    //slukker lys i knapper
 		elev_set_button_lamp(BUTTON_CALL_UP, floor, 0);
-	}else if (sm_next_direction = -1) {
+	}else if (sm_next_direction == -1) {
 		elev_set_button_lamp(BUTTON_CALL_DOWN, floor, 0);
 	}
 	elev_set_door_open_lamp(1);
 	dt_start_timer();
 	qm_update_floor(floor);
 }
-

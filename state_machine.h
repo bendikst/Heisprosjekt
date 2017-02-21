@@ -1,5 +1,9 @@
-#pragma once
+#ifndef "State_Machine_c"
+#define "State_Machine_c"
+
 #include"elev.h"
+#include "Queue_Manager.h"
+#include "Door_Timer.h"
 
 static int sm_last_floor;
 static int sm_target_floor;
@@ -11,3 +15,6 @@ void ev_floor_signal(int floor);
 void ev_stop_button_pressed();
 void ev_stop_button_released();
 void sm_arrived_at_target_floor(int floor);
+
+
+#endif /*State_Machine_c*/
