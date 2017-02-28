@@ -36,9 +36,12 @@ typedef struct linked_list_struct {
 }linked_list;
 
 
+
 void insert_node(int floor, elev_button_type_t buttonType, Node* previous, linked_list* self);
 
 void remove_node(linked_list* self);
+
+void print_list(linked_list* list);
 
 
 

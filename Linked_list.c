@@ -57,3 +57,13 @@ unsigned int size(linked_list* self){
     }
     return size;
 }
+
+void print_list(linked_list* list){
+    Node* it = list->head;
+    printf("start \n");
+    while(it != NULL){
+        printf("Floor: %d, \t buttonType: %d\t next: %d\n", it->floor, it->buttonType, it->next);
+        it = it->next;
+    }
+    printf("end \n");
+}

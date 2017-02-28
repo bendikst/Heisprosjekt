@@ -2,8 +2,13 @@
 #define "State_Machine_c"
 
 #include"elev.h"
+<<<<<<< HEAD
 #include "Queue_Manager.h"
 #include "Door_Timer.h"
+=======
+#include"Queue_Manager.h"
+#include"Door_Timer.h"
+>>>>>>> origin/master
 
 static int sm_last_floor;
 static int sm_target_floor;
