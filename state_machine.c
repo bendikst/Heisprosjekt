@@ -29,7 +29,7 @@ void ev_stop_button_pressed() {
 	if (elev_get_floor_sensor_signal() != -1) {//�pner d�ren hvis i etasje
 		elev_set_door_open_lamp(1);
 	}
-	//slette queue
+	qm_delete_queue();
 }
 void ev_stop_button_released() {
 	elev_set_stop_lamp(1);
@@ -41,10 +41,9 @@ void ev_stop_button_released() {
 void sm_arrived_at_target_floor(int floor) {
 	elev_set_motor_direction(0);
 	elev_set_button_lamp(BUTTON_COMMAND, floor, 0);
-<<<<<<< HEAD
-=======
+
 	sm_next_direction = qm_get_next_direction();
->>>>>>> origin/master
+
 	if (sm_next_direction == 1) {    //slukker lys i knapper
 		elev_set_button_lamp(BUTTON_CALL_UP, floor, 0);
 	}else if (sm_next_direction == -1) {
