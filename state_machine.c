@@ -14,7 +14,12 @@ void ev_timeout() {
 void ev_floor_signal(int floor) {
 	sm_last_floor = floor;
 	qm_update_floor(floor);
+	if(floor != -1){
 	elev_set_floor_indicator(floor);
+	if(floor == qm_get_next_floor()){
+		sm_arrived_at_target_floor(floor);
+	}
+}
 }
 
 void ev_stop_button_pressed() {
@@ -35,9 +40,10 @@ void ev_stop_button_released() {
 void sm_arrived_at_target_floor(int floor) {
 	elev_set_motor_direction(0);
 	elev_set_button_lamp(BUTTON_COMMAND, floor, 0);
-	if (sm_next_direction = 1) {    //slukker lys i knapper
+	sm_next_direction = qm_get_next_direction();
+	if (sm_next_direction == 1) {    //slukker lys i knapper
 		elev_set_button_lamp(BUTTON_CALL_UP, floor, 0);
-	}else if (sm_next_direction = -1) {
+	}else if (sm_next_direction == -1) {
 		elev_set_button_lamp(BUTTON_CALL_DOWN, floor, 0);
 	}
 	elev_set_door_open_lamp(1);

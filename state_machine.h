@@ -1,5 +1,7 @@
 #pragma once
 #include"elev.h"
+#include"Queue_Manager.h"
+#include"Door_Timer.h"
 
 static int sm_last_floor;
 static int sm_target_floor;
