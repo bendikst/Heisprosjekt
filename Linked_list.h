@@ -20,7 +20,7 @@ typedef struct node_struct {
     int floor;
     elev_button_type_t buttonType;
     Node* next;
-    void (*delete_node)(Node*);
+    //void (*delete_node)(Node*);
 }Node;
 
 Node* initialize_node(int floor, elev_button_type_t buttonType);
@@ -30,18 +30,18 @@ Node* initialize_node(int floor, elev_button_type_t buttonType);
 
 typedef struct linked_list_struct {
     Node* head;
-    void (*insert_node)(int, elev_button_type_t, Node*, linked_list*);
-    void (*remove_node)(linked_list*);
-    unsigned int (*size)(linked_list*);
-}linked_list;
+    //void (*insert_node)(int, elev_button_type_t, Node*, linked_list*);
+    //void (*remove_node)(linked_list*);
+    //unsigned int (*size)(linked_list*);
+}Linked_list;
 
 
 
-void insert_node(int floor, elev_button_type_t buttonType, Node* previous, linked_list* self);
+void insert_node(int floor, elev_button_type_t buttonType, Node* previous, Linked_list* self);
 
-void remove_node(linked_list* self);
+void remove_node(Linked_list* self);
 
-void print_list(linked_list* list);
+void print_list(Linked_list* list);
 
 
 

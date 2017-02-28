@@ -6,7 +6,7 @@ void dt_start_timer(void){
 }
 
 bool dt_is_timeout(void){
-	if (dt_timeout == (time(NULL) - dt_timer) > 2) {//HOLDER DETTE?
+	if ((time(NULL) - dt_timer) > 2) {//HOLDER DETTE?
 		dt_timer = 2147483648;//max int
 		return true;
 	}
