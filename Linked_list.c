@@ -58,6 +58,7 @@ unsigned int size(Linked_list* self){
     return size;
 }
 
+
 void print_list(Linked_list* list){
     Node* it = list->head;
     printf("start \n");

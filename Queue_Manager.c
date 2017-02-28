@@ -105,3 +105,11 @@ int qm_get_next_direction(void){
 void qm_init_queue(void){
 	qm_order_list = malloc(sizeof(linked_list));
 }
+
+void qm_delete_queue(void){
+	Node* iterator = qm_order_list->head;
+	while (iterator != NULL){
+			remove_node(iterator);
+			iterator = qm_order_list->head;
+	}
+}

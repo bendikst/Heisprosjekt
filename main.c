@@ -25,7 +25,7 @@ int main() {
 					continue;
 					}
 				if (elev_get_button_signal(j, i)) {
-					
+
 					ev_button_pressed(j, i);
 					print_list(qm_order_list);
 				}
@@ -40,6 +40,9 @@ int main() {
 
 
     }
+		qm_delete_queue();
+		free(qm_order_list);
+		qm_order_list = NULL;
 
     return 0;
 }
@@ -54,4 +57,5 @@ void elevator_init() {
 	}
 	elev_set_motor_direction(0);
 	qm_init_queue();
+
 }
