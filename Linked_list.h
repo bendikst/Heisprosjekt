@@ -43,6 +43,8 @@ void remove_node(Linked_list* self);
 
 void print_list(Linked_list* list);
 
+void print_list(linked_list* list);
+
 
 
 
