@@ -18,7 +18,7 @@ void delete_node(Node* self){
 
 
 
-void insert_node(int floor, elev_button_type_t buttonType, Node* previous, linked_list* self){
+void insert_node(int floor, elev_button_type_t buttonType, Node* previous, Linked_list* self){
     Node* n = initialize_node(floor, buttonType);
     if (self->head == NULL || previous == NULL){ //Empty list, or push_front
         n->next = self->head;
@@ -35,7 +35,7 @@ void insert_node(int floor, elev_button_type_t buttonType, Node* previous, linke
 
 
 
-void remove_node(linked_list* self){//Remove from front
+void remove_node(Linked_list* self){//Remove from front
     if (self->head == NULL){
         return;
     } else {
@@ -46,9 +46,9 @@ void remove_node(linked_list* self){//Remove from front
 }
 
 
-//Counts number of elements in list.
+//Counts number of elements in list. DO WE REALLY NEED THIS?
 
-unsigned int size(linked_list* self){
+unsigned int size(Linked_list* self){
     unsigned int size = 0;
     Node* iterator = self->head;
     while (iterator != NULL){
@@ -58,6 +58,8 @@ unsigned int size(linked_list* self){
     return size;
 }
 
+
+//This function should be removed before FAT?
 void print_list(linked_list* list){
     Node* it = list->head;
     printf("start \n");

@@ -1,9 +1,13 @@
-#pragma once
+#ifndef "State_Machine_c"
+#define "State_Machine_c"
+
 #include"elev.h"
+
 #include"Queue_Manager.h"
 #include"Door_Timer.h"
 
-static int sm_last_floor;
+
+static int sm_last_floor; //DETTE MÅ ENDRES! INGEN VITS MED STATIC I H-FIL
 static int sm_target_floor;
 static int sm_next_direction;
 int sm_stop;
@@ -16,3 +20,6 @@ void ev_stop_button_pressed();
 void ev_stop_button_released();
 void sm_arrived_at_target_floor(int floor);
 void sm_go_to_floor(void);
+
+
+#endif /*State_Machine_c*/
