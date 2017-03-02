@@ -46,21 +46,9 @@ void remove_node(Linked_list* self){//Remove from front
 }
 
 
-//Counts number of elements in list. DO WE REALLY NEED THIS?
-
-unsigned int size(Linked_list* self){
-    unsigned int size = 0;
-    Node* iterator = self->head;
-    while (iterator != NULL){
-        size++;
-        iterator = iterator->next;
-    }
-    return size;
-}
-
 
 //This function should be removed before FAT?
-void print_list(linked_list* list){
+void print_list(Linked_list* list){
     Node* it = list->head;
     printf("start \n");
     while(it != NULL){

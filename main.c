@@ -10,7 +10,7 @@ void elevator_init();
 int main() {
     // Initialize hardware
 	elevator_init();
-  
+
 	bool timeout = true;
 
   while (true) {
@@ -25,7 +25,7 @@ int main() {
 				if((j == 0 && i == N_FLOORS - 1)||(j == 1 && i == 0)) {
 					continue;
 					}
-				if (elev_get_button_signal(j, i)) {					
+				if (elev_get_button_signal(j, i)) {
 					ev_button_pressed(j, i);
 				}
 			}
@@ -46,11 +46,11 @@ int main() {
 
 
     }
-  
+
 		qm_delete_queue();
-		free(qm_order_list); //tenkt gjennom, er dette nok?
+		free(qm_order_list);
 		qm_order_list = NULL;
-  
+
     return 0;
 }
 

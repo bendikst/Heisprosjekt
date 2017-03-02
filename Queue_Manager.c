@@ -4,12 +4,10 @@
 #include "Linked_list.h"
 
 
-//Hvor skal variablene initialiseres?
-
 //Updating last passed floor variable.
 void qm_update_floor(int floor) {
   qm_last_floor = floor;
-  
+
   if (qm_order_list->head == NULL) {
 	  return;
   }
@@ -25,18 +23,18 @@ void qm_update_floor(int floor) {
 
 //Should update queue based on the current direction and orderlist
 void qm_update_queue(int floor, elev_button_type_t button) {
-  
+
   if (qm_order_list->head == NULL) { //dersom listen var tom legger vi det inn som første element
 		  insert_node(floor, button, NULL, qm_order_list);
 		  return;
 	}
- 
+
 	else {//dersom det er ett eller flere element i lista kjører denne
 
 	int um_last_floor = qm_last_floor;
 	elev_motor_direction_t um_next_direction;
 	Node* iterator = qm_order_list->head;
-    
+
 	while (iterator != NULL) {//Sjekker om bestillingen er i lista fra før
 
 	  if((iterator->floor == floor ) && (iterator->buttonType == button)) {
@@ -44,7 +42,7 @@ void qm_update_queue(int floor, elev_button_type_t button) {
 			}
       iterator = iterator->next;
 	}
-    
+
 	iterator = qm_order_list->head;
 
 	while (iterator != NULL) {//bestillingen legges sortert inn i lista
@@ -56,7 +54,7 @@ void qm_update_queue(int floor, elev_button_type_t button) {
 				return;
 			}
 
-			//oppdaterer um_next_direction  
+			//oppdaterer um_next_direction
 			if (um_last_floor < iterator->floor) {
 				um_next_direction = DIRN_UP;
 			}
@@ -98,7 +96,7 @@ void qm_update_queue(int floor, elev_button_type_t button) {
 			//oppdaterer um_last_floor
 			um_last_floor = iterator->floor;
 
-			iterator = iterator->next;//iterer iterator
+			iterator = iterator->next;
 		  }
 	  }
 }
@@ -121,7 +119,7 @@ int qm_get_next_direction(void){
 
 
 void qm_init_queue(void) {
-	qm_order_list = malloc(sizeof(linked_list));
+	qm_order_list = malloc(sizeof(Linked_list));
   }
 
 

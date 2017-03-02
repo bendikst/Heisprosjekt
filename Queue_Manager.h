@@ -5,7 +5,7 @@
 
 static int qm_last_floor; //Her må vi endre, se melding på ITS
 static elev_motor_direction_t qm_next_direction; //-----||-------
-linked_list* qm_order_list; 
+Linked_list* qm_order_list;
 
 
 void qm_update_floor(int floor);

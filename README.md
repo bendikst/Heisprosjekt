@@ -2,16 +2,17 @@
 # Made by: Alexander Johansen & Bendik Standal
 
 
-Respository for heisprosjektet:
-
 Things to be done:
-- Fjern funksjonspekere hvis vi ikke bruker de i Linked lists!
-- Konsekvent standardnavn i linked lists?
 
-- Free vår linked liste
+- Variable, static i headerfila?
+- Endre node navn? "buttonType?"
 - Bedre navn spesefikt til heisprosjekt
-- slukke lys i bestillingsknapper
-- legge inn stop funksjonalitet
-- forbedre queue logikk
+- Slukke lys i bestillingsknapper
+- Legge inn stopp funksjonalitet
+- Forbedre queue logikk
 - Hensiktsmessige kommentarer
 - unngå segfault (viktig!!!))
+- Se over kommentarer
+
+- Free vår linked liste DONE
+- Fjern funksjonspekere hvis vi ikke bruker de i Linked lists! DONE
