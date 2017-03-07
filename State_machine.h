@@ -4,7 +4,7 @@
 #include"elev.h"
 
 #include"Queue_Manager.h"
-#include"Door_Timer.h"
+#include"Door_timer.h"
 
 
 static int sm_last_floor;	//The last floor the elevator passed
