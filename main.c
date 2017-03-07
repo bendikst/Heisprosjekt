@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "State_machine.h"
-#include "Door_Timer.h"
+#include "Door_timer.h"
 
 void elevator_init();
 
