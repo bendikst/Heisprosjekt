@@ -4,98 +4,94 @@
 #include "Linked_list.h"
 
 
-//Updating last passed floor variable.
 void qm_update_floor(int floor) {
   qm_last_floor = floor;
 
-  if (qm_order_list->head == NULL) {
+  if (qm_order_list->head == NULL) {//if the list is empty, return
 	  return;
-  }
-
-  if (floor == qm_order_list->head->floor) {
-	  remove_node(qm_order_list);
-
+  }else if (floor == qm_order_list->head->floor) {
+	  remove_order(qm_order_list);
   }
 }
 
 
 //Should update queue based on the current direction and orderlist
-void qm_update_queue(int floor, elev_button_type_t button) {
+void qm_update_queue(elev_button_type_t button, int floor) {
 
-  if (qm_order_list->head == NULL) { //dersom listen var tom legger vi det inn som første element
-		  insert_node(floor, button, NULL, qm_order_list);
+	if (qm_order_list->head == NULL) { //If the qm_order_list is empty, insert order
+		  insert_order(floor, button, NULL, qm_order_list);
 		  return;
 	}
 
-	else {//dersom det er ett eller flere element i lista kjører denne
+	else {//if there is more than one order in qm_order_list
 
-	int um_last_floor = qm_last_floor;
-	elev_motor_direction_t um_next_direction;//definerer update manager variabel
-	Node* iterator = qm_order_list->head;
+		int uq_last_floor = qm_last_floor;			//defining update queue variables
+		elev_motor_direction_t uq_next_direction;	
+		Order* iterator = qm_order_list->head;		//defining iterator
 
-	while (iterator != NULL) {//Sjekker om bestillingen er i lista fra før
+		while (iterator != NULL) {//Check if order is in list
 
-	  if((iterator->floor == floor ) && (iterator->buttonType == button)) {
-				return;
-			}
-      iterator = iterator->next;
-	}
-
-	iterator = qm_order_list->head;
-
-	while (iterator != NULL) {//bestillingen legges sortert inn i lista
-			//dersom vi har nådd slutten av lista settes bestillingen inn her
-
-			//oppdaterer um_next_direction
-			if (um_last_floor < iterator->floor) {
-				um_next_direction = DIRN_UP;
-			}
-			else if (um_last_floor > iterator->floor) {
-				um_next_direction = DIRN_DOWN;
-			}
-			else {
-				um_next_direction = DIRN_STOP;
-			}
-
-			//forsøker å legge inn i lista
-			if(button == BUTTON_COMMAND){
-				//setter inn dersom måletasjen er mellom den forrige etasjen og den neste etasjen
-				if ((um_next_direction == DIRN_DOWN) && (iterator->floor <= floor) && (floor < um_last_floor)) {
-					insert_node(floor, button, iterator, qm_order_list);
-					return;
+			if((iterator->floor == floor ) && (iterator->buttonType == button)) {
+					return; //If the order already exists, return
 				}
-				else if ((um_next_direction == DIRN_UP) && (iterator->floor >= floor) && (floor > um_last_floor)) {
-					insert_node(floor, button, iterator, qm_order_list);
-					return;
-				}
-			}
-			else if (button == BUTTON_CALL_UP) {
-				if ((um_next_direction == DIRN_UP) && (iterator->floor >= floor) && (floor > um_last_floor)) {
-					insert_node(floor, button, iterator, qm_order_list);
-					return;
-				}
-			}
-			else if (button == BUTTON_CALL_DOWN) {
-				if ((um_next_direction == DIRN_DOWN) && (iterator->floor <= floor) && (floor < um_last_floor)) {
-					insert_node(floor, button, iterator, qm_order_list);
-					return;
-				}
-			}
-			else {
-				printf("something happened in queue manager, during inserting to list\n");
-			}
-
-            if (iterator->next == NULL) {//setter inn bakerst i lista, fordi vi er på det siste elemetet
-				insert_node(floor, button, NULL, qm_order_list);
-                printf("push_back\n");
-				return;
-			}
-
-			//oppdaterer um_last_floor
-			um_last_floor = iterator->floor;
-
 			iterator = iterator->next;
-		  }
+		}
+
+		iterator = qm_order_list->head;	//resetting terator
+
+		while (iterator != NULL) {//insert Order into qm_order_list
+				
+				//Update uq_next_direction every loop
+				//this variable keeps track of the elevators estimated path
+				if (uq_last_floor < iterator->floor) {
+					uq_next_direction = DIRN_UP;
+				}
+				else if (uq_last_floor > iterator->floor) {
+					uq_next_direction = DIRN_DOWN;
+				}
+				else {
+					uq_next_direction = DIRN_STOP;
+				}
+
+				//Try to insirt order into list
+				//If the order is for a floor that the elevator is passing, and the button matches,
+				//insert it into qm_order_list
+				if(button == BUTTON_COMMAND){
+					if ((uq_next_direction == DIRN_DOWN) && (iterator->floor <= floor) && (floor < uq_last_floor)) {
+						insert_order(floor, button, iterator, qm_order_list);
+						return;
+					}
+					else if ((uq_next_direction == DIRN_UP) && (iterator->floor >= floor) && (floor > uq_last_floor)) {
+						insert_order(floor, button, iterator, qm_order_list);
+						return;
+					}
+				}
+				else if (button == BUTTON_CALL_UP) {
+					if ((uq_next_direction == DIRN_UP) && (iterator->floor >= floor) && (floor > uq_last_floor)) {
+						insert_order(floor, button, iterator, qm_order_list);
+						return;
+					}
+				}
+				else if (button == BUTTON_CALL_DOWN) {
+					if ((uq_next_direction == DIRN_DOWN) && (iterator->floor <= floor) && (floor < uq_last_floor)) {
+						insert_order(floor, button, iterator, qm_order_list);
+						return;
+					}
+				}
+				else {
+					printf("something happened in queue manager, during insertiion to list\n");
+				}
+
+				if (iterator->next == NULL) {//Reached end of list, push_back
+					insert_order(floor, button, NULL, qm_order_list);
+					printf("push_back\n");
+					return;
+				}
+
+				//iterate uq_last_floor and iterator
+				uq_last_floor = iterator->floor;
+				iterator = iterator->next;
+			}
 	  }
 }
 
@@ -108,7 +104,7 @@ int qm_get_next_floor(void) {
 }
 
 
-int qm_get_next_direction(void){
+int qm_get_button_type(void){
 	if (qm_order_list->head == NULL) {
 		return -1;
 	}
@@ -122,9 +118,9 @@ void qm_init_queue(void) {
 
 
 void qm_delete_queue(void){
-	Node* iterator = qm_order_list->head;
-	while (iterator != NULL){
-			remove_node(qm_order_list);
+	Order* iterator = qm_order_list->head;
+	while (iterator != NULL){//remove the first order in qm_order_list until there are no more orders
+			remove_order(qm_order_list);
 			iterator = qm_order_list->head;
 	}
 	qm_order_list->head = NULL;
