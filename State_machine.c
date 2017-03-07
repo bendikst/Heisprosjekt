@@ -60,8 +60,8 @@ void sm_arrived_at_target_floor(int floor) {
 	elev_set_motor_direction(0);
 	elev_set_button_lamp(BUTTON_COMMAND, floor, 0);
 
-	if (qm_get_button() != -1) {
-		elev_set_button_lamp(qm_get_next_direction(), floor, 0);
+	if (qm_get_button_type() != -1) {
+		elev_set_button_lamp(qm_get_button_type(), floor, 0);
 	}
 	
     elev_set_door_open_lamp(1);
