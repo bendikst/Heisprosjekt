@@ -82,7 +82,7 @@ void qm_update_queue(int floor, elev_button_type_t button) {
 				}
 			}
 			else {
-				printf("something happened in queue manager, during inserting to list\n");
+				printf("something happened in queue manager during inserting to list\n");
 			}
 
             if (iterator->next == NULL) {//setter inn bakerst i lista, fordi vi er på det siste elemetet
