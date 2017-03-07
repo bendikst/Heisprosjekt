@@ -31,7 +31,7 @@ void qm_update_queue(elev_button_type_t button, int floor) {
 
 		while (iterator != NULL) {//Check if order is in list
 
-			if((iterator->floor == floor ) && (iterator->buttonType == button)) {
+			if((iterator->floor == floor ) && (iterator->button_type == button)) {
 					return; //If the order already exists, return
 				}
 			iterator = iterator->next;
@@ -78,13 +78,9 @@ void qm_update_queue(elev_button_type_t button, int floor) {
 						return;
 					}
 				}
-				else {
-					printf("something happened in queue manager during insertiion to list\n");
-				}
 
 				if (iterator->next == NULL) {//Reached end of list, push_back
 					insert_order(floor, button, NULL, qm_order_list);
-					printf("push_back\n");
 					return;
 				}
 
@@ -108,7 +104,7 @@ int qm_get_button_type(void){
 	if (qm_order_list->head == NULL) {
 		return -1;
 	}
-	return qm_order_list->head->buttonType;
+	return qm_order_list->head->button_type;
 }
 
 
