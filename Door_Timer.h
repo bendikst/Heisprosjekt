@@ -1,19 +1,28 @@
-#ifndef Door_Timer_h
-#define Door_Timer_h
+//  Door_timer.h
+//
+// Simple timer for elevator project "Heisprosjekt-master"
+//
+// Copyright © 2017 Alexander Johansen & Bendik Standal. All rights reserved.
 
-#include <stdio.h>
+#ifndef Door_timer_h
+#define Door_timer_h
+
 #include <stdbool.h>
 #include <time.h>
 
-static bool dt_timeout;
 static int dt_timer;
-static bool dt_timer_stopped;
 
-
+/*
+  Setting variable dt_timer to time() in seconds.
+*/
 void dt_start_timer(void);
+
+
+/*
+  Calculates time passed based som new value of time().
+  @return true if more than 3 seconds have passed, false if not.
+*/
 bool dt_is_timeout(void);
-void dt_init_timer(void);
-void dt_stop_timer(void);
 
 
 #endif /* Door_Timer_h */

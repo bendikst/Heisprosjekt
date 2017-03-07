@@ -79,7 +79,7 @@ void qm_update_queue(elev_button_type_t button, int floor) {
 					}
 				}
 				else {
-					printf("something happened in queue manager, during insertiion to list\n");
+					printf("something happened in queue manager during insertiion to list\n");
 				}
 
 				if (iterator->next == NULL) {//Reached end of list, push_back

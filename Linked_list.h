@@ -1,43 +1,72 @@
-//
 //  Linked_list.h
 //
-//  Created by Bendik Standal on 21/02/2017.
-//  Copyright © 2017 Bendik Standal. All rights reserved.
-//
 // Adapted linked list structure for the elevator project, "Heisprosjekt-master"
-// for the subject TTK4235 Tilpassede datasystemer
-
+// for the subject "TTK4235 Tilpassede datasystemer"
+//
+// Copyright © 2017 Alexander Johansen & Bendik Standal. All rights reserved.
 #ifndef Linked_list_h
 #define Linked_list_h
 
-#include <stdio.h>
+
 #include <stdlib.h>
 #include "elev.h"
 
-typedef struct Node_struct Node;
+typedef struct Order_struct Order;
 
-typedef struct Node_struct {
+
+typedef struct Order_struct {
     int floor;
-    elev_button_type_t buttonType;
-    Node *next;
-    Node *prev;
-}Node;  
+    elev_button_type_t button_type;
+    Order *next;
+    Order *prev;
+}Order;
 
 
 typedef struct Linked_list_struct {
-    Node* head;
-    Node* tail;
+    Order* head;
+    Order* tail;
 }Linked_list;
 
 
-Node* initialize_node(int floor, elev_button_type_t buttonType);
+/*
+  Allocating memory and initializing variables for a new order.
+  @param values set to the Order_struct.
+  @param button Can be BUTTON_CALL_UP,
+    BUTTON_CALL_DOWN or BUTTON_COMMAND.
+*/
+Order* initialize_order(int floor, elev_button_type_t button_type);
 
-void delete_node(Node* self);
 
-void insert_node(int floor, elev_button_type_t buttonType, Node* next, Linked_list* self);
+/*
+  Freeing memory used by an Order_struct.
+  @param self Pointer to the object being deleted.
+*/
+void delete_order(Order* self);
 
-void remove_node(Linked_list* self);
 
+/*
+  Inserting order in the linked list, either push_front, push_back based on
+  @param after, which points to the Order-element being inserted in front of.
+  @param floor Used by initialize_order().
+  @param button Can be BUTTON_CALL_UP,
+    BUTTON_CALL_DOWN or BUTTON_COMMAND.
+  @param self Points to the list being updated.
+*/
+void insert_order(int floor, elev_button_type_t button_type, Order* after, Linked_list* self);
+
+
+/*
+  Removing the first order in the list.
+  @param self Points to the list to remove from.
+*/
+void remove_order(Linked_list* self);
+
+
+/*
+  Printing linked list for debugging. Printing Floor, button_type and adress
+  of next for each order.
+  @param list Points to list being printed.
+*/
 void print_list(Linked_list* list);
 
 

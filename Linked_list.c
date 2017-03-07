@@ -1,10 +1,15 @@
-
+//  Linked_list.c
+//
+// Adapted linked list structure for the elevator project, "Heisprosjekt-master"
+// for the subject "TTK4235 Tilpassede datasystemer"
+//
+// Copyright © 2017 Alexander Johansen & Bendik Standal. All rights reserved.
 #include "Linked_list.h"
 
 
-Node* initialize_node(int floor, elev_button_type_t buttonType){ //Allocating dynamic memory for new node
-    Node* n = malloc(sizeof(Node));
-    n->buttonType = buttonType;
+Order* initialize_order(int floor, elev_button_type_t button_type){
+    Order* n = malloc(sizeof(Order)); //Allocating memory for new order
+    n->button_type = button_type;
     n->floor = floor;
     n->next = NULL;
     n->prev = NULL;
@@ -12,32 +17,32 @@ Node* initialize_node(int floor, elev_button_type_t buttonType){ //Allocating dy
 }
 
 
-void delete_node(Node* self){
+void delete_order(Order* self){
     free(self);
     self = NULL;
 }
 
 
 
-void insert_node(int floor, elev_button_type_t buttonType, Node* after, Linked_list* self){
-    Node* new = initialize_node(floor, buttonType);
-    
-    if(self->head == NULL) { //lista er tom 
+void insert_order(int floor, elev_button_type_t button_type, Order* after, Linked_list* self){
+    Order* new = initialize_order(floor, button_type);
+
+    if(self->head == NULL) { //Empty list
         new->next = self->head;
         self->head = new;
         self->tail = new;
         new->prev = NULL;
-    }else if(after == NULL){ //push_back
+    }else if(after == NULL) { //push_back
         self->tail->next = new;
         new->next = NULL;
         new->prev = self->tail;
         self->tail = new;
-    }else if(after->prev == NULL){ //push_front
+    }else if(after->prev == NULL) { //push_front
         self->head->prev = new;
         new->next = self->head;
         new->prev = NULL;
         self->head = new;
-    }else{
+    }else {
         after->prev->next = new;
         new->next = after;
         new->prev = after->prev;
@@ -47,32 +52,26 @@ void insert_node(int floor, elev_button_type_t buttonType, Node* after, Linked_l
 
 
 
-void remove_node(Linked_list* self){//Remove from front
-    if (self->head == NULL){
+void remove_order(Linked_list* self){//Remove from front
+    if (self->head == NULL) {
         return;
     } else {
-        Node* temp = self->head;
+        Order* temp = self->head;
         self->head->prev = NULL;
         if(self->tail->prev == NULL) self->tail = NULL;
         self->head = self->head->next;
-        delete_node(temp);
+        delete_order(temp);
     }
 }
 
 
 
-//This function should be removed before FAT?
 void print_list(Linked_list* list){
-    Node* it = list->head;
+    Order* it = list->head;
     printf("start \n");
     while(it != NULL){
-        printf("Floor: %d, \t buttonType: %d\t next: %d\n", it->floor, it->buttonType, it->next);
+        printf("Floor: %d, \t button_type: %d\t next: %d\n", it->floor, it->button_type, it->next);
         it = it->next;
     }
     printf("end \n");
 }
-
-
-
-
-

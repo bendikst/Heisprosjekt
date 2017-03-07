@@ -1,3 +1,11 @@
+//  main.c
+//
+// Main elevator function for the elevator project, "Heisprosjekt-master"
+// for the subject "TTK4235 Tilpassede datasystemer"
+//
+// Copyright © 2017 Alexander Johansen & Bendik Standal. All rights reserved.
+
+
 #include "elev.h"
 #include <stdio.h>
 #include <stdbool.h>
@@ -29,7 +37,7 @@ int main() {
 				}
 			}
 		}
-        
+
 		//Polling for stop signal
         if(elev_get_stop_signal()){
             while(elev_get_stop_signal()){//stop all other activity while stop is pressed
@@ -38,16 +46,15 @@ int main() {
             ev_stop_button_released();
         }
 
-		//poll for timeout
+		//Poll for timeout
 		if (dt_is_timeout() && !timeout) {
 			ev_timeout();
-			printf("timeout \n");
 			timeout = true;
 		}else {
 			timeout = dt_is_timeout();
 		}
 
-		//drive elevator
+		//Run elevator
 		sm_go_to_floor();
     }
     return 0;
