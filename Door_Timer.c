@@ -1,23 +1,23 @@
-#include "Door_Timer.h"
+//  Door_timer.c
+//
+// Simple timer for elevator project "Heisprosjekt-master"
+//
+// Copyright © 2017 Alexander Johansen & Bendik Standal. All rights reserved.
 
 
-void dt_start_timer(void){
+#include "Door_timer.h"
+
+
+void dt_start_timer(void) {
     dt_timer = time(NULL);
 }
 
 
-bool dt_is_timeout(void){
-	if ((time(NULL) - dt_timer) > 2) {//Skrive denne mer ryddig?
-		dt_timeout = true;
+bool dt_is_timeout(void) {
+	if ((time(NULL) - dt_timer) > 2) {
+		return true;
 	}
 	else {
-		dt_timeout = false;
+		return false;
 	}
-	return dt_timeout;
-}
-
-
-void dt_init_timer(void){ //Trenger vi denne?
-dt_timeout = false;
-dt_timer= 2147483648;
 }
