@@ -1,7 +1,7 @@
 #include "elev.h"
 #include <stdio.h>
 #include <stdbool.h>
-#include "state_machine.h"
+#include "State_machine.h"
 #include "Door_Timer.h"
 
 void elevator_init();
@@ -20,16 +20,23 @@ int main() {
 		}
 
 		//sjekker etter knappetrykk
-		for (int i = 0; i < N_FLOORS-1; i++) {//itererer gjennom alle etasjer
-			for (int j = 0; j <= 2; j++) {//iterer gjennom alle typer knapper
-				if((j == 0 && i == N_FLOORS - 1)||(j == 1 && i == 0)) {
+		for (int floor = 0; floor < N_FLOORS; floor++) {//itererer gjennom alle etasjer
+			for (int button_type = 0; button_type <= 2; button_type++) {//iterer gjennom alle typer knapper
+				if((button_type == BUTTON_CALL_UP && floor == (N_FLOORS - 1))||(button_type == BUTTON_CALL_DOWN && floor == 0)) {
 					continue;
 					}
-				if (elev_get_button_signal(j, i)) {
-					ev_button_pressed(j, i);
+				if (elev_get_button_signal(button_type, floor)) {
+					ev_button_pressed(button_type, floor);
 				}
 			}
 		}
+        
+        if(elev_get_stop_signal()){
+            while(elev_get_stop_signal()){
+                ev_stop_button_pressed();
+            }
+            ev_stop_button_released();
+        }
 
 		//sjekker timeout
 
@@ -65,6 +72,7 @@ void elevator_init() {
 	}
 	elev_set_motor_direction(0);
 	qm_init_queue();
+    sm_init_sm();
 
 	sm_stop =0;
 }

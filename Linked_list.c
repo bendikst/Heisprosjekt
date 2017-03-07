@@ -7,6 +7,7 @@ Node* initialize_node(int floor, elev_button_type_t buttonType){ //Allocating dy
     n->buttonType = buttonType;
     n->floor = floor;
     n->next = NULL;
+    n->prev = NULL;
     return n;
 }
 
@@ -18,18 +19,29 @@ void delete_node(Node* self){
 
 
 
-void insert_node(int floor, elev_button_type_t buttonType, Node* previous, Linked_list* self){
-    Node* n = initialize_node(floor, buttonType);
-    if (self->head == NULL || previous == NULL){ //Empty list, or push_front
-        n->next = self->head;
-        self->head = n;
-    }
-    else if (previous->next == NULL) { //push_back
-        previous->next = n;
-        n->next = NULL;
-    } else {
-        n->next = previous->next;
-        previous->next = n;
+void insert_node(int floor, elev_button_type_t buttonType, Node* after, Linked_list* self){
+    Node* new = initialize_node(floor, buttonType);
+    
+    if(self->head == NULL) { //lista er tom 
+        new->next = self->head;
+        self->head = new;
+        self->tail = new;
+        new->prev = NULL;
+    }else if(after == NULL){ //push_back
+        self->tail->next = new;
+        new->next = NULL;
+        new->prev = self->tail;
+        self->tail = new;
+    }else if(after->prev == NULL){ //push_front
+        self->head->prev = new;
+        new->next = self->head;
+        new->prev = NULL;
+        self->head = new;
+    }else{
+        after->prev->next = new;
+        new->next = after;
+        new->prev = after->prev;
+        after->prev = new;
     }
 }
 
@@ -39,7 +51,9 @@ void remove_node(Linked_list* self){//Remove from front
     if (self->head == NULL){
         return;
     } else {
-        Node* temp = self->head->next;
+        Node* temp = self->head;
+        self->head->prev = NULL;
+        if(self->tail->prev == NULL) self->tail = NULL;
         self->head = self->head->next;
         delete_node(temp);
     }
@@ -57,3 +71,8 @@ void print_list(Linked_list* list){
     }
     printf("end \n");
 }
+
+
+
+
+

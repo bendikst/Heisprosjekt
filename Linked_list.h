@@ -14,16 +14,19 @@
 #include <stdlib.h>
 #include "elev.h"
 
+typedef struct Node_struct Node;
 
 typedef struct Node_struct {
     int floor;
     elev_button_type_t buttonType;
-    Node* next;
-}Node;
+    Node *next;
+    Node *prev;
+}Node;  
 
 
 typedef struct Linked_list_struct {
     Node* head;
+    Node* tail;
 }Linked_list;
 
 
@@ -31,7 +34,7 @@ Node* initialize_node(int floor, elev_button_type_t buttonType);
 
 void delete_node(Node* self);
 
-void insert_node(int floor, elev_button_type_t buttonType, Node* previous, Linked_list* self);
+void insert_node(int floor, elev_button_type_t buttonType, Node* next, Linked_list* self);
 
 void remove_node(Linked_list* self);
 
