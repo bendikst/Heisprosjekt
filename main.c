@@ -14,7 +14,6 @@
 
 void elevator_init();
 
-
 int main() {
     // Initialize hardware
 	elevator_init();
@@ -22,16 +21,16 @@ int main() {
 	bool timeout = true;
 
   while (true) {
-		//sjekker om heisen ankommer en etasje
+		//Pollinf for arrival at floors
 		if (elev_get_floor_sensor_signal() != -1) {
 			ev_floor_signal(elev_get_floor_sensor_signal());
 		}
 
-		//sjekker etter knappetrykk
-		for (int floor = 0; floor < N_FLOORS; floor++) {//itererer gjennom alle etasjer
-			for (int button_type = 0; button_type <= 2; button_type++) {//iterer gjennom alle typer knapper
+		//Polling for button press
+		for (int floor = 0; floor < N_FLOORS; floor++) {//iterate through all floors
+			for (int button_type = 0; button_type <= 2; button_type++) {//iterate throough all buttons
 				if((button_type == BUTTON_CALL_UP && floor == (N_FLOORS - 1))||(button_type == BUTTON_CALL_DOWN && floor == 0)) {
-					continue;
+					continue;//skip illegal buttons
 					}
 				if (elev_get_button_signal(button_type, floor)) {
 					ev_button_pressed(button_type, floor);
@@ -39,15 +38,15 @@ int main() {
 			}
 		}
 
+		//Polling for stop signal
         if(elev_get_stop_signal()){
-            while(elev_get_stop_signal()){
+            while(elev_get_stop_signal()){//stop all other activity while stop is pressed
                 ev_stop_button_pressed();
             }
             ev_stop_button_released();
         }
 
-		//sjekker timeout
-
+		//Poll for timeout
 		if (dt_is_timeout() && !timeout) {
 			ev_timeout();
 			timeout = true;
@@ -55,16 +54,9 @@ int main() {
 			timeout = dt_is_timeout();
 		}
 
-
+		//Run elevator
 		sm_go_to_floor();
-
-
     }
-
-		qm_delete_queue();
-		free(qm_order_list);
-		qm_order_list = NULL;
-
     return 0;
 }
 
@@ -80,6 +72,4 @@ void elevator_init() {
 	elev_set_motor_direction(0);
 	qm_init_queue();
     sm_init_sm();
-
-	sm_stop =0;
 }

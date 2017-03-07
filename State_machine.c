@@ -1,14 +1,13 @@
 #include"State_machine.h"
 
 
-void ev_button_pressed(elev_button_type_t buttonType, int floor) {
-	qm_update_queue(floor, buttonType);
-	elev_set_button_lamp(buttonType, floor, 1);
-    //print_list(qm_order_list);
+void ev_button_pressed(elev_button_type_t button, int floor) {
+	qm_update_queue(button, floor);
+	elev_set_button_lamp(button, floor, 1);
 }
 
 
-void ev_timeout() {
+void ev_timeout(void) {
 	elev_set_door_open_lamp(0);
 	sm_stop = 0;
 }
@@ -27,13 +26,14 @@ void ev_floor_signal(int floor) {
 }
 
 
-void ev_stop_button_pressed() {
+void ev_stop_button_pressed(void) {
+	sm_stop = 1;
 	elev_set_motor_direction(0);
 	elev_set_stop_lamp(1);
 
-    //slukker alle knapper
-    for (int floor = 0; floor < N_FLOORS; floor++) {//itererer gjennom alle etasjer
-	    for (int button_type = 0; button_type <= 2; button_type++) {//iterer gjennom alle typer knapper
+    //Turn off all lights
+    for (int floor = 0; floor < N_FLOORS; floor++) {
+	    for (int button_type = 0; button_type <= 2; button_type++) {
 		    if((button_type == BUTTON_CALL_UP && floor == (N_FLOORS - 1))||(button_type == BUTTON_CALL_DOWN && floor == 0)) {
 				continue;
 				}
@@ -41,14 +41,14 @@ void ev_stop_button_pressed() {
 		}
 	}
     
-	if (elev_get_floor_sensor_signal() != -1) {//åpner døren hvis i etasje
+	if (elev_get_floor_sensor_signal() != -1) {//open door if in floor
 		elev_set_door_open_lamp(1);
 	}
 	qm_delete_queue();
 }
 
 
-void ev_stop_button_released() {
+void ev_stop_button_released(void) {
 	elev_set_stop_lamp(0);
 	if (elev_get_floor_sensor_signal() != -1) {
 		dt_start_timer();
@@ -59,21 +59,18 @@ void ev_stop_button_released() {
 void sm_arrived_at_target_floor(int floor) {
 	elev_set_motor_direction(0);
 	elev_set_button_lamp(BUTTON_COMMAND, floor, 0);
-//Mellom disse KAN det ha skjedd utilsiktede endringer
-	sm_next_direction = qm_get_next_direction();
-    printf("slukker knapp i etasje %d \n kapp = %d", floor, sm_next_direction);
 
-	if (sm_next_direction != -1) {    //slukker lys i knapper
-		elev_set_button_lamp(sm_next_direction, floor, 0);
+	if (qm_get_button() != -1) {
+		elev_set_button_lamp(qm_get_next_direction(), floor, 0);
 	}
-	//
-  elev_set_door_open_lamp(1);
+	
+    elev_set_door_open_lamp(1);
 	dt_start_timer();
 	sm_stop = 1;
 }
 
 
-void sm_go_to_floor(){
+void sm_go_to_floor(void){
     sm_target_floor = qm_get_next_floor();
 
 	if((sm_target_floor==-1 ) || sm_stop ){
