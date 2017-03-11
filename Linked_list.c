@@ -5,7 +5,7 @@
 //
 // Copyright © 2017 Alexander Johansen & Bendik Standal. All rights reserved.
 #include "Linked_list.h"
-#include <stdio>
+#include <stdio.h>
 
 
 Order* initialize_order(int floor, elev_button_type_t button_type){
