@@ -21,7 +21,7 @@ int main() {
 	bool timeout = true;
 
   while (true) {
-		//Pollinf for arrival at floors
+		//Polling for arrival at floors
 		if (elev_get_floor_sensor_signal() != -1) {
 			ev_floor_signal(elev_get_floor_sensor_signal());
 		}
