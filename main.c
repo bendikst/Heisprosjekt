@@ -2,8 +2,7 @@
 //
 // Main elevator function for the elevator project, "Heisprosjekt-master"
 // for the subject "TTK4235 Tilpassede datasystemer"
-//
-// Copyright © 2017 Alexander Johansen & Bendik Standal. All rights reserved.
+
 
 
 #include "elev.h"
