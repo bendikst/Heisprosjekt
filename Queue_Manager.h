@@ -1,4 +1,4 @@
-/*®Alexander Johansen & Bendik Standal  */
+
 #ifndef Queue_Manager_h
 #define Queue_Manager_h
 #include "Linked_list.h"
