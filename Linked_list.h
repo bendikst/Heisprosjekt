@@ -2,8 +2,8 @@
 //
 // Adapted linked list structure for the elevator project, "Heisprosjekt-master"
 // for the subject "TTK4235 Tilpassede datasystemer"
-//
-// Copyright © 2017 Alexander Johansen & Bendik Standal. All rights reserved.
+
+
 #ifndef Linked_list_h
 #define Linked_list_h
 
