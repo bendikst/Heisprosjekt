@@ -2,7 +2,7 @@
 //
 // Simple timer for elevator project "Heisprosjekt-master"
 //
-// Copyright © 2017 Alexander Johansen & Bendik Standal. All rights reserved.
+
 
 
 #include "Door_timer.h"
